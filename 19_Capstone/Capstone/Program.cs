@@ -4,7 +4,7 @@ using System;
 
 namespace Capstone
 {
-    public class Program
+    class Program
     {
         /****************************************************************************************
          * Notes on this Capstone solution:
@@ -17,7 +17,6 @@ namespace Capstone
          *      one, or create a new one to get started.
          * 
          * *************************************************************************************/
-        public static VendingMachine vendingMachine = new VendingMachine();
 
         static void Main(string[] args)
         {
@@ -28,7 +27,7 @@ namespace Capstone
             // Some objects could be passed into the menu constructor, so that the menu has something to 
             // perform its actions against....
             MainMenu mainMenu = new MainMenu();
-            vendingMachine.Load();
+            VendingMachine.Load();
             mainMenu.Show();
         }
     }

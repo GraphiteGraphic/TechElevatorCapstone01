@@ -36,7 +36,7 @@ namespace Capstone.CLI
         }
         private MenuOptionResult DisplayMenuItems()
         {
-            foreach (Item item in Program.vendingMachine.Inventory)
+            foreach (Item item in VendingMachine.Inventory)
             {
                 if (item.Quantity == 0)
                 {

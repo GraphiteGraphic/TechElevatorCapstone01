@@ -23,7 +23,7 @@ namespace Capstone.CLI
 
         protected override void OnAfterShow()
         {
-            Console.WriteLine($"\n Current Money Provided: {Program.vendingMachine.Balance:C}");
+            Console.WriteLine($"\n Current Money Provided: {VendingMachine.Balance:C}");
         }
 
         private MenuOptionResult FeedMoney()
@@ -35,7 +35,7 @@ namespace Capstone.CLI
                 money = GetInteger("Please insert bills: ", 0);
             }
 
-            Program.vendingMachine.Accounting(money);
+            VendingMachine.Accounting(money);
 
             return MenuOptionResult.DoNotWaitAfterMenuSelection;
         }
@@ -47,7 +47,7 @@ namespace Capstone.CLI
         }
         private MenuOptionResult Finish()
         {
-            int[] result = Program.vendingMachine.Change();
+            int[] result = VendingMachine.Change();
             Console.WriteLine($"Quarters: {result[0]}");
             Console.WriteLine($"Dimes: {result[1]}");
             Console.WriteLine($"Nickels: {result[2]}");

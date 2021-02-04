@@ -5,21 +5,21 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public class VendingMachine
+    public static class VendingMachine
     {
-        private List<Item> inventory = new List<Item> { };
-        public Item[] Inventory { get { return inventory.ToArray(); } }
+        private static List<Item> inventory = new List<Item> { };
+        public static Item[] Inventory { get { return inventory.ToArray(); } }
         
-        private decimal balance = 0;
-        public decimal Balance { get { return balance; } }
+        private static decimal balance = 0;
+        public static decimal Balance { get { return balance; } }
 
-        public void Dispense()
+        public static void Dispense()
         {
 
         }
 
-        public string inPath = "..\\..\\..\\..\\vendingmachine.csv";
-        public void Load()
+        public static string inPath = "..\\..\\..\\..\\vendingmachine.csv";
+        public static void Load()
         {
             using (StreamReader reader = new StreamReader(inPath))
             {
@@ -31,7 +31,7 @@ namespace Capstone.Models
             }
         }
 
-        public bool Accounting(decimal money)
+        public static bool Accounting(decimal money)
         {
             if (balance + money > 0)
             {
@@ -42,7 +42,7 @@ namespace Capstone.Models
             return false;
         }
 
-        public int[] Change()
+        public static int[] Change()
         {
             decimal[] change = new decimal[] { 0.25M, 0.10M, 0.05M, 0.01M };
             int[] amountsOfEachCoin = new int[] { 0, 0, 0, 0 };
