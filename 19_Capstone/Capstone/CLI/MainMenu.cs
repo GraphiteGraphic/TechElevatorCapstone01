@@ -19,29 +19,29 @@ namespace Capstone.CLI
         public MainMenu()
         {
             // Add Sample menu options
-            AddOption("Greeting", Greeting, "G");
-            AddOption("Show the Time", GetTime, "T");
-            AddOption("Quit", Close, "Q");
+            AddOption("Display Menu Items", DisplayMenuItems);
+            AddOption("Purchase", Purchase);
+            AddOption("Quit", Close);
 
             Configure(cfg =>
            {
                cfg.ItemForegroundColor = ConsoleColor.Cyan;
-               cfg.MenuSelectionMode = MenuSelectionMode.KeyString; // KeyString: User types a key, Arrow: User selects with arrow
-               cfg.KeyStringTextSeparator = ": ";
+               //cfg.MenuSelectionMode = MenuSelectionMode.KeyString; // KeyString: User types a key, Arrow: User selects with arrow
+               //cfg.KeyStringTextSeparator = ": ";
                cfg.Title = "Main Menu";
            });
         }
 
-        private MenuOptionResult GetTime()
+        private MenuOptionResult DisplayMenuItems()
         {
-            Console.WriteLine($"The time is {DateTime.Now}");
+            //string name = GetString("What is your name? ");
+            //Console.WriteLine($"Hello, {name}!");
             return MenuOptionResult.WaitAfterMenuSelection;
         }
 
-        private MenuOptionResult Greeting()
+        private MenuOptionResult Purchase()
         {
-            string name = GetString("What is your name? ");
-            Console.WriteLine($"Hello, {name}!");
+            //Console.WriteLine($"The time is {DateTime.Now}");
             return MenuOptionResult.WaitAfterMenuSelection;
         }
     }
