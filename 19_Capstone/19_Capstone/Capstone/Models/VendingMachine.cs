@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public class VendingMachine
+    class VendingMachine
     {
         private List<Item> inventory = new List<Item> { };
         public Item[] Inventory { get { return inventory.ToArray(); } }
@@ -33,7 +33,7 @@ namespace Capstone.Models
 
         public bool Accounting(decimal money)
         {
-            if (balance + money > 0)
+            if (balance + money < 0)
             {
                 balance += money;
                 return true;
@@ -42,20 +42,13 @@ namespace Capstone.Models
             return false;
         }
 
-        public int[] Change()
+        public Dictionary<decimal, int> Change()
         {
-            decimal[] change = new decimal[] { 0.25M, 0.10M, 0.05M, 0.01M };
-            int[] amountsOfEachCoin = new int[] { 0, 0, 0, 0 };
+            Dictionary<decimal, int> change = new Dictionary<decimal, int> { { .25M, 0 }, { .1M, 0 }, { .05M, 0 }, { .01M, 0 } };
 
-            for (int i = 0; i < change.Length - 1; i++)
-            {
-                while (balance >= change[i])
-                {
-                    balance -= change[i];
-                    amountsOfEachCoin[i]++;
-                }
-            }
-            return amountsOfEachCoin;
+            //TODO calculate amount of each coin needed from balance
+
+            return change;
         }
     }
 }

@@ -47,7 +47,14 @@ namespace Capstone.CLI
         }
         private MenuOptionResult Finish()
         {
-            
+            int[] result = Program.vendingMachine.Change();
+            Console.WriteLine($"Quarters: {result[0]}");
+            Console.WriteLine($"Dimes: {result[1]}");
+            Console.WriteLine($"Nickels: {result[2]}");
+            Console.WriteLine($"Pennies: {result[3]}");
+
+            //Console.WriteLine("balance = " + Program.vendingMachine.Balance); //for todd's testing purposes
+
             return MenuOptionResult.CloseMenuAfterSelection;
         }
     }
