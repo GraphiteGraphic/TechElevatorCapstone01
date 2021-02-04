@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Capstone.Models
@@ -17,9 +18,17 @@ namespace Capstone.Models
 
         }
 
+        public string inPath = "..\\..\\..\\..\\vendingmachine.csv";
         public void Load()
         {
-
+            using (StreamReader reader = new StreamReader(inPath))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string[] result = reader.ReadLine().Split("|");
+                    inventory.Add(new Item(result[0], result[1], decimal.Parse(result[2]), result[3]));
+                }
+            }
         }
 
         public bool Accounting(decimal money)

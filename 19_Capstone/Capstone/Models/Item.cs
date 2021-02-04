@@ -22,12 +22,12 @@ namespace Capstone.Models
             }
         }
 
-        public Item(string name, string type, string slotlocation, decimal price)
+        public Item(string slotLocation, string name, decimal price, string type)
         {
+            this.SlotLocation = slotLocation;
             this.Name = name;
-            this.Type = type;
-            this.SlotLocation = slotlocation;
             this.Price = price;
+            this.Type = type;
             Quantity = 5;
         }
     }

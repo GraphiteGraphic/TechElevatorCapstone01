@@ -1,4 +1,5 @@
 ﻿using Capstone.CLI;
+using Capstone.Models;
 using System;
 
 namespace Capstone
@@ -18,6 +19,7 @@ namespace Capstone
          * *************************************************************************************/
         static void Main(string[] args)
         {
+            
             // You may want to create some objects to get the whole process started here...
 
 

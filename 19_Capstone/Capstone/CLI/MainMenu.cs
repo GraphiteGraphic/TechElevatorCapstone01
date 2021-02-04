@@ -1,5 +1,6 @@
 ﻿using MenuFramework;
 using System;
+using Capstone.Models;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace Capstone.CLI
 {
     public class MainMenu : ConsoleMenu
     {
+        VendingMachine vendingMachine = new VendingMachine();
         /*******************************************************************************
          * Private data:
          * Usually, a menu has to hold a reference to some type of "business objects",
@@ -31,11 +33,20 @@ namespace Capstone.CLI
                cfg.Title = "Main Menu";
            });
         }
-
         private MenuOptionResult DisplayMenuItems()
         {
-            //string name = GetString("What is your name? ");
-            //Console.WriteLine($"Hello, {name}!");
+            vendingMachine.Load();
+            foreach (Item item in vendingMachine.Inventory)
+            {
+                if (item.Quantity == 0)
+                {
+                    Console.WriteLine($"{item.SlotLocation}: {item.Name}, SOLD OUT");
+                }
+                else
+                {
+                    Console.WriteLine($"{item.SlotLocation}: {item.Name}, ${item.Price}, ({item.Quantity} available) ");
+                }
+            }
             return MenuOptionResult.WaitAfterMenuSelection;
         }
 
