@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    class Item
+    public class Item
     {
         public string Name { get; }
         public string Type { get; }

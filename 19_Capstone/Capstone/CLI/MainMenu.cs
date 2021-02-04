@@ -8,7 +8,8 @@ namespace Capstone.CLI
 {
     public class MainMenu : ConsoleMenu
     {
-        VendingMachine vendingMachine = new VendingMachine();
+        PurchaseMenu purchaseMenu = new PurchaseMenu();
+
         /*******************************************************************************
          * Private data:
          * Usually, a menu has to hold a reference to some type of "business objects",
@@ -35,8 +36,7 @@ namespace Capstone.CLI
         }
         private MenuOptionResult DisplayMenuItems()
         {
-            vendingMachine.Load();
-            foreach (Item item in vendingMachine.Inventory)
+            foreach (Item item in Program.vendingMachine.Inventory)
             {
                 if (item.Quantity == 0)
                 {
@@ -52,7 +52,7 @@ namespace Capstone.CLI
 
         private MenuOptionResult Purchase()
         {
-            //Console.WriteLine($"The time is {DateTime.Now}");
+            purchaseMenu.Show();
             return MenuOptionResult.WaitAfterMenuSelection;
         }
     }

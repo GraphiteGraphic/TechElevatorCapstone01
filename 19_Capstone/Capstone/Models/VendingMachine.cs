@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    class VendingMachine
+    public class VendingMachine
     {
         private List<Item> inventory = new List<Item> { };
         public Item[] Inventory { get { return inventory.ToArray(); } }
@@ -33,7 +33,7 @@ namespace Capstone.Models
 
         public bool Accounting(decimal money)
         {
-            if (balance + money < 0)
+            if (balance + money > 0)
             {
                 balance += money;
                 return true;
