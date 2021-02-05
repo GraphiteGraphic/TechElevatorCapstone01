@@ -6,36 +6,25 @@ namespace CapstoneTests
 {
     [TestClass]
     public class ItemTests
-    {
-        [TestMethod]
-        public void Check_If_Item_Has_Correct_Properties()
+    { 
+        [DataTestMethod]
+        [DataRow("A1", "Snackwells", .50, "Candy")]
+        [DataRow("D3", "Fritos", 1.20, "Chip")]
+        [DataRow("B4", "Diet Water", 3.60, "Drink")]
+        [DataRow("A3", "Twix", .80, "Candy")]
+        public void Check_If_Item_Has_Correct_Properties(string slotLocation, string name, double price, string type)
         {
             //arrange
-            Item item = new Item("A1", "Snackwells", .50M, "Candy");
+            Item item = new Item(slotLocation, name, (decimal)price, type);
 
             //act
 
             //assert
-            Assert.AreEqual("A1", item.SlotLocation);
-            Assert.AreEqual("Snackwells", item.Name);
-            Assert.AreEqual(.50M, item.Price);
-            Assert.AreEqual("Candy", item.Type);
+            Assert.AreEqual(slotLocation, item.SlotLocation);
+            Assert.AreEqual(name, item.Name);
+            Assert.AreEqual((decimal)price, item.Price);
+            Assert.AreEqual(type, item.Type);
             Assert.AreEqual(5, item.Quantity);
-        }
-
-        [TestMethod]
-        public void Make_Sure_Vending_Machine_Is_Properly_Stocked()
-        {
-            //arrange
-
-            //act
-            VendingMachine.Load();
-
-            //assert
-            foreach(Item item in VendingMachine.Inventory)
-            {
-                Assert.AreEqual(5, item.Quantity);
-            }
         }
     }
 }

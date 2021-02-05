@@ -34,7 +34,7 @@ namespace Capstone.Models
 
         public static bool Accounting(decimal money)
         {
-            if (balance + money > 0)
+            if (balance + money >= 0)
             {
                 balance += money;
                 return true;
@@ -48,7 +48,7 @@ namespace Capstone.Models
             decimal[] change = new decimal[] { 0.25M, 0.10M, 0.05M, 0.01M };
             int[] amountsOfEachCoin = new int[] { 0, 0, 0, 0 };
 
-            for (int i = 0; i < change.Length - 1; i++)
+            for (int i = 0; i < change.Length; i++)
             {
                 while (balance >= change[i])
                 {
