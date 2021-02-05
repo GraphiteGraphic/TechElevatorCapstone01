@@ -66,35 +66,15 @@ namespace Capstone.CLI
             }
             
             string selection = GetString("\nWhat would you like to purchase? (Please input product code)");
-           
-            foreach(Item item in VendingMachine.Inventory)
+
+            //Secret Code to open hidden menu option
+            if (selection == "%%")
             {
-                //if (selection == "ZZ") add menu item......
-                //turn bool isSecretMenuOptionThere to true
-                //when secretmenuoption is selected, it writes SalesReport.txt.
-                if (selection == item.SlotLocation && item.Quantity > 0)
-                {
-                    if (VendingMachine.Balance > item.Price)
-                    {
-                        VendingMachine.StringLog($"{item.Name} {item.SlotLocation}");
-                        VendingMachine.Dispense(item);
-                        Console.WriteLine(item.SoundEffect);
-                        return MenuOptionResult.WaitAfterMenuSelection;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Insufficient funds");
-                        return MenuOptionResult.WaitAfterMenuSelection;
-                    }
-                }
-                else if (item.Quantity == 0)
-                {
-                    Console.WriteLine("SOLD OUT!");
-                    return MenuOptionResult.WaitAfterMenuSelection;
-                }
+                HiddenOption();
             }
 
-            Console.WriteLine("Error: Invalid Product Code");
+            Console.WriteLine(VendingMachine.CheckInventory(selection.ToUpper()));
+
             return MenuOptionResult.WaitAfterMenuSelection;
         }
         private MenuOptionResult Finish()
@@ -106,9 +86,13 @@ namespace Capstone.CLI
             Console.WriteLine($"Nickels: {result[2]}");
             Console.WriteLine($"Pennies: {result[3]}");
 
-            //Console.WriteLine("balance = " + Program.vendingMachine.Balance); //for todd's testing purposes
-
             return MenuOptionResult.CloseMenuAfterSelection;
         }
+
+        public void HiddenOption()
+        {
+            VendingMachine.Hidden = true;
+        }
+
     }
 }

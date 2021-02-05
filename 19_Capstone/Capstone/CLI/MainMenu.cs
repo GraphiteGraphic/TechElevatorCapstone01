@@ -25,13 +25,17 @@ namespace Capstone.CLI
             AddOption("Display Menu Items", DisplayMenuItems);
             AddOption("Purchase", Purchase);
             AddOption("Quit", Close);
+            if (VendingMachine.Hidden)
+            {
+                AddOption("**SALES REPORT**", SalesReport);
+            }
 
             Configure(cfg =>
            {
                cfg.ItemForegroundColor = ConsoleColor.Cyan;
                //cfg.MenuSelectionMode = MenuSelectionMode.KeyString; // KeyString: User types a key, Arrow: User selects with arrow
                //cfg.KeyStringTextSeparator = ": ";
-               cfg.Title = "Main Menu";
+               cfg.Title = "Vendo-matic 800";
            });
         }
         private MenuOptionResult DisplayMenuItems()
@@ -54,6 +58,12 @@ namespace Capstone.CLI
         {
             purchaseMenu.Show();
             return MenuOptionResult.WaitAfterMenuSelection;
+        }
+
+        private MenuOptionResult SalesReport()
+        {
+
+            return MenuOptionResult.DoNotWaitAfterMenuSelection;
         }
     }
 }

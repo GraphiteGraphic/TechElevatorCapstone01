@@ -9,7 +9,7 @@ namespace Capstone.Models
     {
         private static List<Item> inventory = new List<Item> { };
         public static Item[] Inventory { get { return inventory.ToArray(); } }
-        
+
         private static decimal balance = 0;
         public static decimal Balance { get { return balance; } }
 
@@ -26,6 +26,7 @@ namespace Capstone.Models
 
         public static void Load()
         {
+            inventory.Clear();
             using (StreamReader reader = new StreamReader(inPath))
             {
                 while (!reader.EndOfStream)
@@ -34,6 +35,33 @@ namespace Capstone.Models
                     inventory.Add(new Item(result[0], result[1], decimal.Parse(result[2]), result[3]));
                 }
             }
+        }
+
+        public static string CheckInventory(string selection)
+        {
+            foreach (Item item in Inventory)
+            {
+                if (selection != item.SlotLocation)
+                {
+                    continue;
+                }
+
+                if (item.Quantity > 0)
+                {
+                    if (balance > item.Price)
+                    {
+                        StringLog($"{item.Name} {item.SlotLocation}");
+                        Dispense(item);
+                        return item.SoundEffect;
+                    }
+
+                    return "Insufficient Funds";
+                }
+
+                return "SOLD OUT";
+            }
+
+            return "Error: Invalid Product Code";
         }
 
         public static bool Accounting(decimal money)
@@ -92,5 +120,10 @@ namespace Capstone.Models
                 }
             }
         }
+
+        /// <summary>
+        /// Attempt at making a "Hidden" Menu Option
+        /// </summary>
+        public static bool Hidden = false;
     }
 }

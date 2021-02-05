@@ -23,6 +23,7 @@ namespace CapstoneTests
             {
                 Assert.AreEqual(5, item.Quantity);
             }
+
         }
 
         [DataTestMethod]
@@ -83,6 +84,31 @@ namespace CapstoneTests
 
             //assert
             CollectionAssert.AreEquivalent(expectedResult, actualResult);
+        }
+
+        [DataTestMethod]
+        [DataRow ("A1", "Insufficient Funds", 0, 1)]
+        [DataRow ("Foo", "Error: Invalid Product Code", 0, 1)]
+        [DataRow ("A1", "Crunch Crunch, Yum!", 10, 1)]
+        [DataRow ("A1", "SOLD OUT", 20, 6)]
+        public void Check_Inventory_Tests(string selection, string expectedmessage, double money, int numberOfTransactions)
+        {
+            //arrange
+            VendingMachine.Load();
+            VendingMachine.Accounting((decimal)money);
+            string output = "";
+
+            //act
+            for (int i = 0; i < numberOfTransactions; i++)
+            {
+                output = VendingMachine.CheckInventory(selection);
+            }
+
+            //assert
+            Assert.AreEqual(expectedmessage, output);
+
+            //reset Class
+            VendingMachine.Accounting(VendingMachine.Balance * -1);
         }
     }
 }
