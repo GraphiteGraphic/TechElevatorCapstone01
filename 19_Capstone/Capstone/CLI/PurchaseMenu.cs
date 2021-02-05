@@ -41,8 +41,50 @@ namespace Capstone.CLI
         }
         private MenuOptionResult Select()
         {
+            int spacing = 0;
+            foreach (Item item in VendingMachine.Inventory)
+            {
+                if (spacing < item.Name.Length)
+                {
+                    spacing = 10 + item.Name.Length;
+                }
+            }
 
+            foreach (Item item in VendingMachine.Inventory)
+            { 
+                string space = "";
+                for (int i = 0; i < (spacing - item.Name.Length); i++)
+                {
+                    space += " ";
+                }
+                Console.WriteLine($"{item.SlotLocation}:\t{item.Name}{space}${item.Price}"); 
+            }
+            
+            string selection = GetString("\nWhat would you like to purchase? (Please input product code)");
+           
+            foreach(Item item in VendingMachine.Inventory)
+            {
+                if (selection == item.SlotLocation && item.Quantity > 0)
+                {
+                    if (VendingMachine.Dispense(item))
+                    {
+                        Console.WriteLine(item.SoundEffect);
+                        return MenuOptionResult.WaitAfterMenuSelection;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insufficient funds");
+                        return MenuOptionResult.WaitAfterMenuSelection;
+                    }
+                }
+                else if (item.Quantity == 0)
+                {
+                    Console.WriteLine("SOLD OUT!");
+                    return MenuOptionResult.WaitAfterMenuSelection;
+                }
+            }
 
+            Console.WriteLine("Error: Invalid Product Code");
             return MenuOptionResult.WaitAfterMenuSelection;
         }
         private MenuOptionResult Finish()

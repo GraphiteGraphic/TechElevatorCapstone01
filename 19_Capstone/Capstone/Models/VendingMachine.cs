@@ -13,9 +13,10 @@ namespace Capstone.Models
         private static decimal balance = 0;
         public static decimal Balance { get { return balance; } }
 
-        public static void Dispense()
+        public static bool Dispense(Item item)
         {
-
+            item.Quantity -= 1;
+            return Accounting(item.Price * -1);
         }
 
         public static string inPath = "..\\..\\..\\..\\vendingmachine.csv";

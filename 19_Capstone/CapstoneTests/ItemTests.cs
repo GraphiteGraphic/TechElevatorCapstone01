@@ -20,8 +20,10 @@ namespace CapstoneTests
             Assert.AreEqual("Snackwells", item.Name);
             Assert.AreEqual(.50M, item.Price);
             Assert.AreEqual("Candy", item.Type);
-            Assert.AreEqual("5", item.Quantity);
+            Assert.AreEqual(5, item.Quantity);
         }
+
+        [TestMethod]
         public void Make_Sure_Vending_Machine_Is_Properly_Stocked()
         {
             //arrange
