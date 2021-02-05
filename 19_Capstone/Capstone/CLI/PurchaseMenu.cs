@@ -69,6 +69,9 @@ namespace Capstone.CLI
            
             foreach(Item item in VendingMachine.Inventory)
             {
+                //if (selection == "ZZ") add menu item......
+                //turn bool isSecretMenuOptionThere to true
+                //when secretmenuoption is selected, it writes SalesReport.txt.
                 if (selection == item.SlotLocation && item.Quantity > 0)
                 {
                     if (VendingMachine.Balance > item.Price)
