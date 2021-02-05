@@ -80,8 +80,9 @@ namespace Capstone.CLI
 
         private MenuOptionResult SalesReport()
         {
-
-            return MenuOptionResult.DoNotWaitAfterMenuSelection;
+            VendingMachine.SalesReport();
+            Console.WriteLine($"SalesReport{VendingMachine.dateTime}.txt has been generated");
+            return MenuOptionResult.WaitAfterMenuSelection;
         }
         
     }
