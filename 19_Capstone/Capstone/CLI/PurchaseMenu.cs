@@ -35,12 +35,17 @@ namespace Capstone.CLI
                 money = GetInteger("Please insert bills: ", 0);
             }
 
-            VendingMachine.Accounting(money);
+            if (money > 0)
+            {
+                VendingMachine.StringLog("FEED MONEY:");
+                VendingMachine.Accounting(money);
+            }
 
             return MenuOptionResult.DoNotWaitAfterMenuSelection;
         }
         private MenuOptionResult Select()
         {
+            //Visual Spacing
             int spacing = 0;
             foreach (Item item in VendingMachine.Inventory)
             {
@@ -66,8 +71,10 @@ namespace Capstone.CLI
             {
                 if (selection == item.SlotLocation && item.Quantity > 0)
                 {
-                    if (VendingMachine.Dispense(item))
+                    if (VendingMachine.Balance > item.Price)
                     {
+                        VendingMachine.StringLog($"{item.Name} {item.SlotLocation}");
+                        VendingMachine.Dispense(item);
                         Console.WriteLine(item.SoundEffect);
                         return MenuOptionResult.WaitAfterMenuSelection;
                     }
@@ -89,6 +96,7 @@ namespace Capstone.CLI
         }
         private MenuOptionResult Finish()
         {
+            VendingMachine.StringLog("GIVE CHANGE:");
             int[] result = VendingMachine.Change();
             Console.WriteLine($"Quarters: {result[0]}");
             Console.WriteLine($"Dimes: {result[1]}");

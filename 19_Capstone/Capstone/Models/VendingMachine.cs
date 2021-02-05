@@ -13,13 +13,17 @@ namespace Capstone.Models
         private static decimal balance = 0;
         public static decimal Balance { get { return balance; } }
 
-        public static bool Dispense(Item item)
+        public static void Dispense(Item item)
         {
-            item.Quantity -= 1;
-            return Accounting(item.Price * -1);
+            if (Accounting(item.Price * -1))
+            {
+                item.Quantity -= 1;
+            }
         }
 
         public static string inPath = "..\\..\\..\\..\\vendingmachine.csv";
+        public static string outPath = "..\\..\\..\\..\\Log.txt";
+
         public static void Load()
         {
             using (StreamReader reader = new StreamReader(inPath))
@@ -36,7 +40,9 @@ namespace Capstone.Models
         {
             if (balance + money >= 0)
             {
+                CashLog(balance);
                 balance += money;
+                CashLog(balance);
                 return true;
             }
 
@@ -48,6 +54,7 @@ namespace Capstone.Models
             decimal[] change = new decimal[] { 0.25M, 0.10M, 0.05M, 0.01M };
             int[] amountsOfEachCoin = new int[] { 0, 0, 0, 0 };
 
+            CashLog(balance);
             for (int i = 0; i < change.Length; i++)
             {
                 while (balance >= change[i])
@@ -56,7 +63,34 @@ namespace Capstone.Models
                     amountsOfEachCoin[i]++;
                 }
             }
+            CashLog(balance);
+
             return amountsOfEachCoin;
+        }
+
+        public static void StringLog(string action)
+        {
+            using (StreamWriter writer = new StreamWriter(outPath, true))
+            {
+                writer.Write($"{DateTime.Now} {action}");
+            }
+        }
+
+
+        public static int indexer = 0;
+        public static void CashLog(decimal balance)
+        {
+            using (StreamWriter writer = new StreamWriter(outPath, true))
+            {
+                indexer++;
+                writer.Write($" {balance:C}");
+
+                if (indexer > 1)
+                {
+                    writer.WriteLine();
+                    indexer = 0;
+                }
+            }
         }
     }
 }
