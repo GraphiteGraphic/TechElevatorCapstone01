@@ -29,6 +29,13 @@ namespace Capstone
             MainMenu mainMenu = new MainMenu();
             VendingMachine.Load();
             mainMenu.Show();
+            if (VendingMachine.Hidden)
+            {
+                MainMenu secretMenu = new MainMenu();
+                VendingMachine.Hidden = false;
+                secretMenu.Show();
+            }
+            
         }
     }
 }

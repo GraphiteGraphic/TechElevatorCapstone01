@@ -30,13 +30,26 @@ namespace Capstone.CLI
                 AddOption("**SALES REPORT**", SalesReport);
             }
 
-            Configure(cfg =>
-           {
-               cfg.ItemForegroundColor = ConsoleColor.Cyan;
-               //cfg.MenuSelectionMode = MenuSelectionMode.KeyString; // KeyString: User types a key, Arrow: User selects with arrow
-               //cfg.KeyStringTextSeparator = ": ";
-               cfg.Title = "Vendo-matic 800";
-           });
+            if (VendingMachine.Hidden)
+            {
+                Configure(cfg =>
+                {
+                    cfg.SelectedItemForegroundColor = ConsoleColor.Red;
+                    cfg.ItemForegroundColor = ConsoleColor.Cyan;
+                    cfg.Title = "SECRET MENU ACTIVATED";
+                });
+            }
+            else 
+            {
+                Configure(cfg =>
+                {
+                    cfg.ItemForegroundColor = ConsoleColor.Cyan;
+                    cfg.Title = "Vendo-matic 800";
+                });
+            }
+            
+
+
         }
         private MenuOptionResult DisplayMenuItems()
         {
@@ -57,6 +70,11 @@ namespace Capstone.CLI
         private MenuOptionResult Purchase()
         {
             purchaseMenu.Show();
+            if (VendingMachine.Hidden)
+            {
+                return MenuOptionResult.CloseMenuAfterSelection;
+            }
+
             return MenuOptionResult.WaitAfterMenuSelection;
         }
 
@@ -65,5 +83,6 @@ namespace Capstone.CLI
 
             return MenuOptionResult.DoNotWaitAfterMenuSelection;
         }
+        
     }
 }
