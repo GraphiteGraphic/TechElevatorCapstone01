@@ -39,6 +39,7 @@ namespace Capstone.Models
                 }
             }
 
+            salesLog.Clear();
             if (File.Exists(reportPath))
             {
                 using (StreamReader reader = new StreamReader(reportPath))
@@ -155,7 +156,7 @@ namespace Capstone.Models
         public static void SalesReport()
         {
             dateTime = $"{DateTime.Now}";
-            dateTime = dateTime.Replace("/", "-").Replace(":",".").Replace(" ","_");
+            dateTime = dateTime.Replace("/", "_").Replace(":",".").Replace(" ","_");
             using (StreamWriter writer = new StreamWriter($"{reportPath}SalesReport{dateTime}.txt"))
             {
                 decimal total = 0;

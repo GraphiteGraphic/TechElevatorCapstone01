@@ -33,8 +33,9 @@ namespace CapstoneTests
         public void Check_If_Dispense_Correctly_Updates_Balance(double startingBalance, double costOfItem, double finalBalance)
         {
             //arrange
+            VendingMachine.Load();
             VendingMachine.Accounting((decimal)startingBalance);
-            Item item = new Item("A1", "TestChocolate", (decimal)costOfItem, "Candy");
+            Item item = new Item("A1", "Potato Crisps", (decimal)costOfItem, "Chip");
 
             //act
             //VendingMachine.Load();
@@ -47,16 +48,18 @@ namespace CapstoneTests
         }
 
         [DataTestMethod]
-        [DataRow(3, 2)]
-        [DataRow(1, 4)]
-        [DataRow(0, 5)]
-        [DataRow(5, 0)]
-        [DataRow(7, -2)]
-        public void Check_If_Dispense_Correctly_Updates_Quantity(int numberOfPurchases, int expectedQuantityLeft)
+        [DataRow(1000, 3, 2)]
+        [DataRow(1000, 1, 4)]
+        [DataRow(1000, 0, 5)]
+        [DataRow(1000, 5, 0)]
+        [DataRow(1000, 7, -2)]
+        [DataRow(0, 7, 5)]
+        public void Check_If_Dispense_Correctly_Updates_Quantity(int money, int numberOfPurchases, int expectedQuantityLeft)
         {
-            Item item = new Item("A1", "TestChocolate", .75M, "Candy");
+            VendingMachine.Load();
+            Item item = new Item("A1", "Potato Crisps", .75M, "Chip");
+            VendingMachine.Accounting(money);
 
-            VendingMachine.Accounting(10000M);
             for (int i = 0; i < numberOfPurchases; i++)
             {
                 VendingMachine.Dispense(item);
@@ -65,6 +68,7 @@ namespace CapstoneTests
             Assert.AreEqual(expectedQuantityLeft, item.Quantity);
             VendingMachine.Change();
         }
+
         [DataTestMethod]
         [DataRow(.99, new int[] { 3, 2, 0, 4 })]
         [DataRow(1, new int[] { 4, 0, 0, 0 })]
