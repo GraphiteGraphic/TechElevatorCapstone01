@@ -25,13 +25,11 @@ namespace Capstone.CLI
             AddOption("Display Menu Items", DisplayMenuItems);
             AddOption("Purchase", Purchase);
             AddOption("Quit", Close);
+            
             if (VendingMachine.Hidden)
             {
                 AddOption("**SALES REPORT**", SalesReport);
-            }
 
-            if (VendingMachine.Hidden)
-            {
                 Configure(cfg =>
                 {
                     cfg.SelectedItemForegroundColor = ConsoleColor.Red;

@@ -40,7 +40,16 @@ namespace Capstone.Models
             }
 
             salesLog.Clear();
-            if (File.Exists(reportPath))
+            string newReport = "";
+            string[] files = Directory.GetFiles(reportPath);
+            foreach (string file in files)
+            {
+                if (file.Contains("SalesReport"))
+                {
+                    newReport = file;
+                }
+            }
+            if (File.Exists(newReport))
             {
                 using (StreamReader reader = new StreamReader(reportPath))
                 {

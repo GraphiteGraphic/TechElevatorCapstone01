@@ -274,3 +274,13 @@
 2/6/2021 3:32:34 PM Potato Crisps A1 $10.85 $7.80
 2/6/2021 3:32:34 PM Potato Crisps A1 $7.80 $4.75
  $4.75 $0.00
+2/6/2021 4:04:21 PM FEED MONEY: $0.00 $23.00
+2/6/2021 4:05:45 PM Stackers A2 $23.00 $21.55
+2/6/2021 4:05:49 PM Potato Crisps A1 $21.55 $18.50
+2/6/2021 4:05:51 PM Potato Crisps A1 $18.50 $15.45
+2/6/2021 4:05:52 PM Potato Crisps A1 $15.45 $12.40
+2/6/2021 4:05:54 PM Potato Crisps A1 $12.40 $9.35
+2/6/2021 4:05:55 PM Potato Crisps A1 $9.35 $6.30
+2/6/2021 4:05:58 PM Chiclets D3 $6.30 $5.55
+2/6/2021 4:06:02 PM Wonka Bar B3 $5.55 $4.05
+2/6/2021 4:07:17 PM GIVE CHANGE: $4.05 $0.00
