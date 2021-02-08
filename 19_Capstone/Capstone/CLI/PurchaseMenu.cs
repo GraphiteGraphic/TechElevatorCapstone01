@@ -71,8 +71,8 @@ namespace Capstone.CLI
             if (selection == "%%")
             {
                 HiddenOption();
-                //Console.WriteLine("Secret Code Activated! Press any key to continue.");
-                return MenuOptionResult.CloseMenuAfterSelection;
+                Console.WriteLine("Secret Code Activated! Press any key to continue.");
+                return MenuOptionResult.WaitAfterMenuSelection;
             }
 
             Console.WriteLine(VendingMachine.CheckInventory(selection.ToUpper()));

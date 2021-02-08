@@ -25,7 +25,19 @@ namespace Capstone.CLI
             AddOption("Display Menu Items", DisplayMenuItems);
             AddOption("Purchase", Purchase);
             AddOption("Quit", Close);
-            
+
+
+
+            Configure(cfg =>
+            {
+                cfg.ItemForegroundColor = ConsoleColor.Cyan;
+                cfg.Title = "Vendo-matic 800";
+            });
+
+        }
+
+        protected override void RebuildMenuOptions()
+        {
             if (VendingMachine.Hidden)
             {
                 AddOption("**SALES REPORT**", SalesReport);
@@ -37,29 +49,34 @@ namespace Capstone.CLI
                     cfg.Title = "SECRET MENU ACTIVATED";
                 });
             }
-            else 
-            {
-                Configure(cfg =>
-                {
-                    cfg.ItemForegroundColor = ConsoleColor.Cyan;
-                    cfg.Title = "Vendo-matic 800";
-                });
-            }
-            
-
-
         }
+
         private MenuOptionResult DisplayMenuItems()
         {
+            //Visual Spacing
+            int spacing = 0;
             foreach (Item item in VendingMachine.Inventory)
             {
+                if (spacing < item.Name.Length)
+                {
+                    spacing = 10 + item.Name.Length;
+                }
+            }
+
+            foreach (Item item in VendingMachine.Inventory)
+            {
+                string space = "";
+                for (int i = 0; i < (spacing - item.Name.Length); i++)
+                {
+                    space += " ";
+                }
                 if (item.Quantity == 0)
                 {
-                    Console.WriteLine($"{item.SlotLocation}: {item.Name}, SOLD OUT");
+                    Console.WriteLine($"{item.SlotLocation}: {item.Name} {space}SOLD OUT");
                 }
                 else
                 {
-                    Console.WriteLine($"{item.SlotLocation}: {item.Name}, ${item.Price}, ({item.Quantity} available) ");
+                    Console.WriteLine($"{item.SlotLocation}: {item.Name} {space}${item.Price} \t({item.Quantity} available) ");
                 }
             }
             return MenuOptionResult.WaitAfterMenuSelection;
@@ -68,10 +85,6 @@ namespace Capstone.CLI
         private MenuOptionResult Purchase()
         {
             purchaseMenu.Show();
-            if (VendingMachine.Hidden)
-            {
-                return MenuOptionResult.CloseMenuAfterSelection;
-            }
 
             return MenuOptionResult.WaitAfterMenuSelection;
         }
@@ -82,6 +95,6 @@ namespace Capstone.CLI
             Console.WriteLine($"SalesReport{VendingMachine.dateTime}.txt has been generated");
             return MenuOptionResult.WaitAfterMenuSelection;
         }
-        
+
     }
 }
